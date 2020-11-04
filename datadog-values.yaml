@@ -1,0 +1,33 @@
+# src: https://github.com/DataDog/helm-charts/blob/master/charts/datadog/values.yaml
+## Default values for Datadog Agent
+## See Datadog helm documentation to learn more:
+## https://docs.datadoghq.com/agent/kubernetes/helm/
+
+datadog:
+  confd: # {}
+    openmetrics.yaml: |-
+      init_config:
+      instances:
+      # The prometheus endpoint to query from
+      - prometheus_url: http://mvc-service:80/metrics
+        namespace: "mydotnetapp"
+        metrics:
+          - dotnet*
+          - "*"
+      - prometheus_url: http://prometheus-example-service:9090/metrics
+        namespace: "myapp"
+        metrics:
+          - prometheus_target_interval_length_seconds: target_interval_length
+          - http_requests_total
+          - http*
+  #   redisdb.yaml: |-
+  #     init_config:
+  #     instances:
+  #       - host: "name"
+  #         port: "6379"
+  #   kubernetes_state.yaml: |-
+  #     ad_identifiers:
+  #       - kube-state-metrics
+  #     init_config:
+  #     instances:
+  #       - kube_state_url: http://%%host%%:8080/metrics

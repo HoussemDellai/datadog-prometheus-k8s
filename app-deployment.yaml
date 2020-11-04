@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mvc-deployment
+spec:
+  selector:
+    matchLabels:
+      app: mvc
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: mvc
+        tags.datadoghq.com/env: "production"
+        tags.datadoghq.com/service: "my-mvc-app"
+        tags.datadoghq.com/version: "v1.9.3"
+      annotations:
+        ad.datadoghq.com/mvc.check_names: '["openmetrics-mvc"]'
+        ad.datadoghq.com/mvc.init_configs: '[{}]'
+        ad.datadoghq.com/mvc.instances: |
+          [
+            {
+              "prometheus_url": "http://mvc-service:80/metrics",
+              "namespace": "mvc_kubernetes",
+              "metrics": [ {"dotnet_total_memory_bytes": "prometheus.dotnet.total.memory.bytes"}]
+            }
+          ]
+    spec:
+      containers:
+      - name: mvc
+        image: aaacr.azurecr.io/web-app:1.0
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 300m
+            memory: "100Mi"
+          requests:
+            cpu: 100m
+            memory: "50Mi"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mvc-service
+spec:
+  selector:
+    app: mvc
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer #NodePort
