@@ -1,4 +1,4 @@
-# datadog-prometheus-k8s  
+# Collecting application custom metrics using Datadog 
 
 This demo will walk you through:  
 1) Installing Datadog into Kubernetes  
