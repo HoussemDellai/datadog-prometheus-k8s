@@ -28,4 +28,8 @@ helm upgrade datadog -f datadog-values.yaml `
              --set datadog.apm.enabled=true `
              datadog/datadog
 
-# Deploy
+# View custom metrics on Datadog dashboard -> Metrics -> Explorer
+
+# Creating custom metrics like page views counter in app code
+
+# Viewing the custom metric in Datadog dashboard
