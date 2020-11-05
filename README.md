@@ -27,7 +27,8 @@ Deploy sample app expposing prometheus metrics on /metrics
 kubectl apply -f app-deployment.yaml
 ```
 
-Show Prometheus Nuget package config and View the metrics on /metrics  
+Show Prometheus Nuget package config in dotnetcore-app/Startup.cs  
+View the metrics on /metrics  
 Now we want to collect these application metrics using Datadog  
 
 Configure Datadog to collect application metrics using datadog-values.yaml file  
@@ -40,6 +41,6 @@ helm upgrade datadog -f datadog-values.yaml `
              datadog/datadog
 ```
 
-View custom metrics on Datadog dashboard -> Metrics -> Explorer  
-Creating custom metrics like page views counter in app code  
+View application specific metrics on Datadog dashboard -> Metrics -> Explorer  
+Creating custom metrics like page views counter in app code, in  dotnetcore-app/Controllers/HomeController.cs    
 Viewing the custom metric in Datadog dashboard  
