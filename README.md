@@ -44,3 +44,9 @@ helm upgrade datadog -f datadog-values.yaml `
 View application specific metrics on Datadog dashboard -> Metrics -> Explorer  
 Creating custom metrics like page views counter in app code, in  dotnetcore-app/Controllers/HomeController.cs    
 Viewing the custom metric in Datadog dashboard  
+
+References:  
+Datadog Helm chart: https://github.com/DataDog/helm-charts/tree/master/charts/datadog  
+Autodiscovery in Datadog: https://docs.datadoghq.com/agent/kubernetes/integrations/?tab=kubernetes  
+Prometheus libraries: https://prometheus.io/docs/instrumenting/clientlibs/
+
