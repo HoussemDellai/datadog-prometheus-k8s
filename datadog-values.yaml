@@ -9,17 +9,17 @@ datadog:
       init_config:
       instances:
       # The prometheus endpoint to query from
-      - prometheus_url: http://mvc-service:80/metrics
+      - prometheus_url: http://frontend-service:80/metrics
         namespace: "mydotnetapp"
         metrics:
-          - dotnet*
           - "*"
-      - prometheus_url: http://prometheus-example-service:9090/metrics
-        namespace: "myapp"
-        metrics:
-          - prometheus_target_interval_length_seconds: target_interval_length
-          - http_requests_total
-          - http*
+          # - dotnet*
+      # - prometheus_url: http://prometheus-example-service:9090/metrics
+      #   namespace: "myapp"
+      #   metrics:
+      #     - prometheus_target_interval_length_seconds: target_interval_length
+      #     - http_requests_total
+      #     - http*
   #   redisdb.yaml: |-
   #     init_config:
   #     instances:

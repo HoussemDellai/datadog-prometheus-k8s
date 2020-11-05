@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mvc-deployment
+  name: frontend-deployment
 spec:
   selector:
     matchLabels:
-      app: mvc
+      app: frontend
   replicas: 3
   template:
     metadata:
       labels:
-        app: mvc
-        tags.datadoghq.com/env: "production"
-        tags.datadoghq.com/service: "my-mvc-app"
-        tags.datadoghq.com/version: "v1.9.3"
-      annotations:
-        ad.datadoghq.com/mvc.check_names: '["openmetrics-mvc"]'
-        ad.datadoghq.com/mvc.init_configs: '[{}]'
-        ad.datadoghq.com/mvc.instances: |
-          [
-            {
-              "prometheus_url": "http://mvc-service:80/metrics",
-              "namespace": "mvc_kubernetes",
-              "metrics": [ {"dotnet_total_memory_bytes": "prometheus.dotnet.total.memory.bytes"}]
-            }
-          ]
+        app: frontend
+      #   tags.datadoghq.com/env: "production"
+      #   tags.datadoghq.com/service: "my-frontend-app"
+      #   tags.datadoghq.com/version: "v1.9.3"
+      # annotations:
+      #   ad.datadoghq.com/frontend.check_names: '["app-metrics"]'
+      #   ad.datadoghq.com/frontend.init_configs: '[{}]'
+      #   ad.datadoghq.com/frontend.instances: |
+      #     [
+      #       {
+      #         "prometheus_url": "http://frontend-service:80/metrics",
+      #         "namespace": "mvc_kubernetes",
+      #         "metrics": [ {"dotnet_total_memory_bytes": "prometheus.dotnet.total.memory.bytes"}]
+      #       }
+      #     ]
     spec:
       containers:
-      - name: mvc
+      - name: frontend
         image: aaacr.azurecr.io/web-app:1.0
         ports:
         - containerPort: 80
@@ -42,12 +42,12 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: mvc-service
+  name: frontend-service
 spec:
   selector:
-    app: mvc
+    app: frontend
   ports:
   - protocol: TCP
     port: 80
     targetPort: 80
-  type: LoadBalancer #NodePort
+  type: LoadBalancer
